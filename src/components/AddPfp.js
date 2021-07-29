@@ -10,11 +10,12 @@ export default class AddPfp extends Component {
     
     constructor(props){
         super(props);
-        //1:15:00
         this.state={
             name: '',
             file: null,
             fileDisplay: null,
+            link: '',
+            acctdesc: ''
         };
 
         this.fileInputRef = React.createRef();
@@ -61,7 +62,8 @@ export default class AddPfp extends Component {
     async saveImage(downloadUrl) {
         // TODO 
 
-        db.collection('pfp-alpha').add({ downloadUrl: downloadUrl });
+        db.collection('pfp-alpha').add({ downloadUrl: downloadUrl, link: this.state.link, acctDesc: this.state.acctdesc });
+        //db.collection('pfp-alpha').add({ link: this.state.link });
     }
 
     render() {
@@ -97,8 +99,20 @@ export default class AddPfp extends Component {
 
                 <form onSubmit={(e) => this.onFormSubmit(e)}>
                 <div className="input-group mb-3">
-                    <label className="form-label">Name</label>
-                    <input type="text" className="form-control" />
+                    <label className="form-label">Add link to account here: </label>
+                    <input 
+                    value={this.state.link}
+                    onChange={(e) => this.setState({link: e.target.value})}
+                    type="text" 
+                    className="form-control"
+                    placeholder="link to account" />
+                    <label className="form-label">Add account description here: </label>
+                    <input 
+                    value={this.state.link}
+                    onChange={(e) => this.setState({acctdesc: e.target.value})}
+                    type="text" 
+                    className="form-control"
+                    placeholder="link to account" />
                 </div>
                 <div className="d-flex justify-content-end">
                     <button type="submit" className="btn btn-secondary">
